@@ -9,6 +9,11 @@ Use ```npm install``` to build dependencies and push the project into a runable 
 
 Use ```npm run start``` to run the application.
 
+### Strict Mode
+There is a thing called _Strict Mode_ which will prevent syntax errors, incorrect logic, wrong assignments, etc. from even compiling and making it to the page. 
+
+It is applied to the file being coded in. Call it with ```'use strict';```
+
 ## Printing
 
 Use ```console.log``` to print to the browser's _Inspect Element_ debug console. 
@@ -30,6 +35,7 @@ Libraries that span the webpage should be put up in the ```<head>``` section. Th
 
 Using a file with the common-name ```utils.js``` is the standard for self-made modules. It needs to proceed other js file sourcing.
 
+
 ### Manipulating Elements
 ```
 document.getElementByID('message').textContent = "Get a Grip.";
@@ -37,7 +43,88 @@ document.getElementByID('message').textContent = "Get a Grip.";
 
 This code grabs the content under the _id_ ```message``` and changes its text accordingly.
 
-## JavaScript Fundamentals
+### Most Common DOM Usage
+Button Clicks:
+```
+const button = document.getElementById('see-review');
+button.addEventListener('click', function() {
+    console.log('click');
+});
+```
+The function ```function()``` inside the parameters works as an "anonymous" function, its only purpose to server the context it is being used for.
+
+Showing / Hiding Elements
+```
+const review = document.getElementById('review'); 
+review.addEventListener('click', function() {
+    review.classList.remove('d-none');
+});    
+```
+When the button is clicked, it shows the review by removing a property in the class keeping it hidden.
+
+### Styling
+JS can style but CSS is the standard.
+```
+const header = document.getElementById('message');
+header.style.fontWeight = '800';
+```
+
+It is possible to store multiple elements with the same class under a js array.
+```
+const containers = document.getElementByClassName("container");
+```
+This can have benefits like ```containers[2].classList.add('d-none');```.
+
+## Objects
+
+To create a basic object, all that is needed is:
+```
+let person = {
+    firstName = "James",
+    lastName = "Dean"
+};
+```
+Calling ```person.firstName``` would be using the value "James".
+### Private Attributes
+There are such thing as private attributes. To implement it, it needs to use the ```[]``` operator as such:
+```
+let mySalary = 0;
+let person = {
+    name = "BoB",
+    [mySalary] = 120000;
+};
+```
+The attribute ```mySalary``` is not accessible. 
+### Functions as Attributes
+This is acceptable:
+```
+let person = {
+    name: "BoB",
+    age: 32,
+    showInfo: function() {
+        console.log(this.name, this.age);
+    }
+};
+```
+You can also have a function that accepts a parameter.
+```
+let person = {
+    name: "John",
+    age: 35.
+    showRealInfo: function(realAge) {
+        console.log(this.name, "real age is", realAge);
+    }
+};
+person.realAge(40);
+```
+
+### Pre-Defined Objects
+```
+let now = new Date();
+loggingFunction( now.toDateString() );
+```
+
+## Fundamentals
 
 The ```var``` keyword in javascript is no longer best practice. The new standard is ```let```.
 
@@ -54,17 +141,6 @@ console.log(value2);
 
 You are able to declare many variables at once.
 
-### Objects
-
-To create a basic object, all that is needed is:
-```
-let person = {
-    firstName = "James",
-    lastName = "Dean"
-}
-```
-Calling ```person.firstName``` would be using the value "James".
-
 ### "```==```" VS "```===```"
 
 ```==``` will do an implicit type coercion between both values being compared. Generally, you use ```===``` as the best practice since implicit type coercion can lead to bugs later down the line.
@@ -79,11 +155,38 @@ myFunction();
 loggingFunction();
 ```
 
+### Arrays
+Initialize with ```let values = [1,2,3,4];```
+
+Non-const arrays are mutable with typical methods like ```push()``` and ```pop()```.
+
+While it seems right to make a for loop for searching, use pre-defined libraries for searching as they are optimized and efficient. 
+```
+const values = [1,2,3,4,5];
+const set = values.filter(function(item) {
+    return item > 3
+});
+console.log(set);   // 4, 5
+```
+
 ### Types
 
 Can use ```typeof``` to determine type in js. 
 
 Use ```++``` when the increment is wanted after the line has been ran. 
+
+### Hoisting
+Hoisting is the term for calling a variable or function before it is defined. This can look like:
+```
+productID = '12345';
+myFunction();
+
+let productID = '123';
+function myFunction() {
+    console.log("Hello World");
+}
+```
+In this code, the ```let productID = '123'``` would cause an error but the function would pass without error. This would make the function **hoisted**.
 
 ### Strings
 
