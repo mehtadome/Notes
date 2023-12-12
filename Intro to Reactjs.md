@@ -226,7 +226,6 @@ JSX supports the ternary ```?``` operator.
 ```
 const people = ['Rowe', 'Prevost', 'Gare'];
 const peopleList = people.map(person =>
-  // expression goes here:
   <li>{person}</li>
 );
 root.render(<ul>{peopleList}</ul>)
@@ -413,4 +412,87 @@ function App() {
 Can use ```.``` notation to refer to the _object_ ```props``` attributes.
 
 ### Functions as Props
+```
+function Button(props) {
+  return (
+    <button onClick={props.talk}>
+      Click me!
+    </button>
+  );
+} export default Button;
 
+/*Separate File*/
+
+function Talker() {
+  function talk() {
+    let speech = '';
+    for (let i = 0; i < 10000; i++) {
+      speech += 'blah ';
+    }
+    alert(speech);
+	}
+  return <Button talk={talk}/>;
+} 
+export default Talker;
+```
+It is bad practice to keep name _event handlers_ without the ```on``` prefix. To fix it, you would rename the method to something like ```handleClick``` and the props attribute to ```onClick```.
+
+Althought HTML does use the keyword ```onClick``` as well, it does not apply in this case as ```Button()``` was specifically defined as a component. 
+
+### Props.Children
+```props.children``` refers to all the context between the opening and closing tags of a component. Recall you could also call a component as ```<MyComponent></MyComponent>```
+
+When the component is called, anything within and referred to as ```props.children``` in its definition will display:
+```
+function List(props) {
+  let titleText = `Favorite ${props.type}`;
+  if (props.children instanceof Array) {
+    titleText += 's';
+  }
+  return (
+    <div>
+      <h1>{titleText}</h1>
+      <ul>{props.children}</ul>
+    </div>
+  );
+} export default List;
+
+...
+return (
+  <List>
+    <li>Wario</li>
+    <li>Ouchies</li>
+  </list>
+);
+```
+
+### Props Default Text
+1. Override static property of component:
+```
+function Example(props) {
+  return <h1>{props.text}</h1>
+}
+
+Example.defaultProps = {
+  text: 'This is default text',
+};
+```
+2. Specify default value in function definition:
+```
+function Example({text='This is default text'}) {
+   return <h1>{text}</h1>
+}
+```
+3. Default value in function body.
+```
+function Example(props) {
+  const {text = 'This is default text'} = props;
+  return <h1>{text}</h1>
+}
+```
+
+## React Developer Tools
+Chrome has an extension called React Developer Tools.
+```https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi```
+
+When an ```npm start``` has occurred, the extension will become available to use in Chrome.
