@@ -496,3 +496,6 @@ Chrome has an extension called React Developer Tools.
 ```https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi```
 
 When an ```npm start``` has occurred, the extension will become available to use in Chrome.
+
+# CodeyOverflow Forum
+Please look at the **README.md** to get an idea of the project.
