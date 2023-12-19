@@ -1,6 +1,6 @@
 # Getting Started in JavaScript
 
-## Environment
+# Environment
 ```Node.js``` and _Electron_ for local server development.
 
 When running npm install, use it in the terminal because it is common to run into errors using VSCode's terminal.
@@ -9,12 +9,12 @@ Use ```npm install``` to build dependencies and push the project into a runable 
 
 Use ```npm run start``` to run the application.
 
-### Strict Mode
+## Strict Mode
 There is a thing called _Strict Mode_ which will prevent syntax errors, incorrect logic, wrong assignments, etc. from even compiling and making it to the page. 
 
 It is applied to the file being coded in. Call it with ```'use strict';```
 
-## Printing
+# Printing
 
 Use ```console.log``` to print to the browser's _Inspect Element_ debug console. 
 
@@ -22,7 +22,7 @@ The comma ```,``` is used to separate parameters.
 
 Using ```+``` inside the print will concatenate the next value to the string, implicitly converting it. 
 
-## JavaScript in HTML
+# JavaScript in HTML
 
 Use the ```<script>``` tag in an HTML file to code js. However, it's best to use a separate js file using:
 ```
@@ -36,14 +36,14 @@ Libraries that span the webpage should be put up in the ```<head>``` section. Th
 Using a file with the common-name ```utils.js``` is the standard for self-made modules. It needs to proceed other js file sourcing.
 
 
-### Manipulating Elements
+## Manipulating Elements
 ```
 document.getElementByID('message').textContent = "Get a Grip.";
 ```
 
 This code grabs the content under the _id_ ```message``` and changes its text accordingly.
 
-### Most Common DOM Usage
+## Most Common DOM Usage
 Button Clicks:
 ```
 const button = document.getElementById('see-review');
@@ -62,7 +62,7 @@ review.addEventListener('click', function() {
 ```
 When the button is clicked, it shows the review by removing a property in the class keeping it hidden.
 
-### Styling
+## Styling
 JS can style but CSS is the standard.
 ```
 const header = document.getElementById('message');
@@ -75,7 +75,7 @@ const containers = document.getElementByClassName("container");
 ```
 This can have benefits like ```containers[2].classList.add('d-none');```.
 
-## Objects
+# Objects
 
 To create a basic object, all that is needed is:
 ```
@@ -85,7 +85,7 @@ let person = {
 };
 ```
 Calling ```person.firstName``` would be using the value "James".
-### Private Attributes
+## Private Attributes
 There are such thing as private attributes. To implement it, it needs to use the ```[]``` operator as such:
 ```
 let mySalary = 0;
@@ -95,7 +95,7 @@ let person = {
 };
 ```
 The attribute ```mySalary``` is not accessible. 
-### Functions as Attributes
+## Functions as Attributes
 This is acceptable:
 ```
 let person = {
@@ -118,13 +118,26 @@ let person = {
 person.realAge(40);
 ```
 
-### Pre-Defined Objects
+## Pre-Defined Objects
 ```
 let now = new Date();
 loggingFunction( now.toDateString() );
 ```
 
-## Fundamentals
+## Calling an API
+Using the ```fetch()``` and ```then()``` functions to receive and parse the request are the traditional, more inefficient way of waiting for a promise to parse.
+```
+const fetchData = async () => {
+  const resp = await fetch('https://api.github.com');
+  const data = await resp.json();
+  console.log(data);
+};
+
+fetchData();
+```
+By using ```async``` and ```await```, it gets rid of the ```then()``` synchronous nature.
+
+# Fundamentals
 
 The ```var``` keyword in javascript is no longer best practice. The new standard is ```let```.
 
@@ -141,11 +154,11 @@ console.log(value2);
 
 You are able to declare many variables at once.
 
-### "```==```" VS "```===```"
+## "```==```" VS "```===```"
 
 ```==``` will do an implicit type coercion between both values being compared. Generally, you use ```===``` as the best practice since implicit type coercion can lead to bugs later down the line.
 
-### Functions
+## Functions
 This allowed:
 ```
 let myFunction = function loggingFunction() {
@@ -155,7 +168,7 @@ myFunction();
 loggingFunction();
 ```
 
-### Arrays
+## Arrays
 Initialize with ```let values = [1,2,3,4];```
 
 Non-const arrays are mutable with typical methods like ```push()``` and ```pop()```.
@@ -169,13 +182,13 @@ const set = values.filter(function(item) {
 console.log(set);   // 4, 5
 ```
 
-### Types
+## Types
 
 Can use ```typeof``` to determine type in js. 
 
 Use ```++``` when the increment is wanted after the line has been ran. 
 
-### Hoisting
+## Hoisting
 Hoisting is the term for calling a variable or function before it is defined. This can look like:
 ```
 productID = '12345';
@@ -188,18 +201,18 @@ function myFunction() {
 ```
 In this code, the ```let productID = '123'``` would cause an error but the function would pass without error. This would make the function **hoisted**.
 
-### Strings
+## Strings
 
 To use a variable inside a string, you do ```"${variable_name}"```.
 
-### Booleans
+## Booleans
 Considered False (_falsy_):
 ```
 false, 0, "", '', null, undefined, NaN
 ```
 Considered True (_truthy_): **Everything not _falsy_**.
 
-### Do...While
+## Do...While
 ```
 let count = 1;
 do {
@@ -207,3 +220,28 @@ do {
     count++;
 } while (count < 5);
 ```
+
+# Classes
+Classes ```extend``` from the React's components package. So it must be defined with such:
+```
+class Card extends React.Component { }
+```
+
+## Props
+To use props, it uses ```this```.
+```
+const profile = this.props;
+```
+An example of how to initiate props. Components which will use the props still need ```props``` passed as a parameter.
+
+Use ```props._name``` where ```_name``` is the props value to be used.
+
+## Constructor
+A constructor is required to connect the React class to superclass.
+```
+constructor(props) {
+    super(props);
+    this.state = {};
+}
+```
+
