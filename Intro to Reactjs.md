@@ -240,6 +240,18 @@ const peopleList = people.map((person, i) =>
 );
 ```
 
+Create an array from a range of numbers and keep track of its keys.
+```
+const maxRange = 10;
+const myArr = utils.range(1, maxRange).map(myID => 
+  <button key={myID}>{myID}
+  </button>);
+
+const utils = {
+  range: (min, max) => Array.from({ length: max - min + 1 }, (_, i) => min + i)
+};
+```
+
 # React Components
 React apps are made of **components**, small reusable chunks of code responsible for one job.
 
@@ -438,6 +450,14 @@ export default Talker;
 It is bad practice to keep name _event handlers_ without the ```on``` prefix. To fix it, you would rename the method to something like ```handleClick``` and the props attribute to ```onClick```.
 
 Althought HTML does use the keyword ```onClick``` as well, it does not apply in this case as ```Button()``` was specifically defined as a component. 
+
+Can use arrow functions with props too:
+```
+const MyNumber = props => (
+  <button>{props.number}
+  </button>
+);
+```
 
 ### Props.Children
 ```props.children``` refers to all the context between the opening and closing tags of a component. Recall you could also call a component as ```<MyComponent></MyComponent>```

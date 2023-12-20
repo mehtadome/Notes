@@ -1,4 +1,4 @@
-# Intermediate Reactjs 
+# Reactjs States and Hooks
 Includes more difficult concepts, syntax, and usage. 
 
 # State Hooks
@@ -401,6 +401,27 @@ export default function Timer() {
 }
 ```
 ```setTime()``` starts initially at 0 so on the first render, ```prev``` = ```0```
+
+## Resetting State
+To reset state, there are two ways to do so. The first is by re-initializing the base value with the setter function initially providing.
+```
+const [num, setNum] = useState(0);
+// num increments somewhere
+setNum(0);  // resets to initial state
+```
+This is useful when wanting to reset the who ```<App />``` into its starting state **but** will introduce _side effects_ when using ```useEffect()```s. 
+
+A common side effect would be ```setTimeout()```: A timer that starts and constantly is called on each state change. 
+
+To avoid this, at the topmost component, give it a ```key```. The way React _mounts_ nodes is setup in a way that if there is an id provided, React will unmount the old and remount another application when an id change occurs.
+```
+const StarMatch = () => {
+  const [gameId, setGameId] = useState(1);
+  return <Game key={gameId} startNewGame={() => setGameId(gameId + 1)}/>;
+}
+root.render(<StarMatch />);
+```
+In the code, the id will increment by 1 everytime the ```startNewGame()``` prop is called at a lower level.
 
 ## Fetch Data
 Controlling fetching is a common use case.
