@@ -1,4 +1,9 @@
 # Reactjs Programming Patterns
+The following topics are covered:
+- Separation of presentational from container
+- Passing changes between components
+- Styling
+- Controlled and Uncontrolled components
 
 ## Stateful Container Components
 Breaking down functional parts of a component to improve readability and decrease bug-proneness.
@@ -25,12 +30,12 @@ The _container_ component holds stateful information like ```useEffect()``` and 
 import GuineaPigsSlideShow from "../components/GuineaPigsSlideShow";
 import GuineaPigsForm from "../components/GuineaPigsForm";
 ```
-Use ```../``` for directories.
+Use ```../``` for directories. Notice how the ```.js``` is not needed.
 
 ### Stateless to Stateful Changes
 Presentation components are stateless. To communicate changes to a container (stateful) component, the container component must define and provide a way for the presentational component to communicate with it.
 
-To do so, you create a change handler function passed as a prop.
+To do so, you **create a change handler function** passed as a ```prop```.
 
 This looks something like:
 ```
@@ -179,7 +184,7 @@ Within the ```<input>```, the ```onChange``` calls ```handleUserInput``` and has
 
 Thus doing ```<h4>{userInput}</h4>``` will allow user to see current inputed text. Everytime a character is deleted / added, the ```onChange``` triggers the state to change and ```userInput``` becomes the current state of the text.
 
-## (Un)controlled Components
+## (Un)/controlled Components
 ```
 let input = document.querySelector('input[type="text"]');
 // input.value will be equal to whatever text is currently in the text box.

@@ -15,6 +15,14 @@ A JSX compiler needs to be set up to use correctly.
 ```
 JSX combines JavaScript and HTML. 
 
+The following topics are covered:
+- Attributes, Rendering, JS in JSX
+- Objects, Conditionals, Operators
+- Arrays, .map(), keys
+- Components (rendering, importing / exporting)
+- Props
+- My First React App, CodeyOverflow Forum
+
 ## Syntax
 ```
 const navBar = <nav>I am a nav bar</nav>;
