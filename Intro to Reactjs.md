@@ -305,6 +305,28 @@ export default App
 ```
 Another way to render the DOM is to call ```App```, a keyword itself, which React can use to create the DOM without extra steps.
 
+### Important Note on Importing / Exporting the ```<App />```
+There are two types of imports, a _default_ import and a regular one. Mismatching will cause errors.
+
+A regular import consists of 
+```
+export function App() {...}
+
+// import as
+import { App } from '../components/App';
+```
+For a regular import, you omit ```default``` and use the ```{}``` braces.
+
+A default import consists of
+```
+// App.js
+export default function App() {...}
+
+// import as
+import App from '../components/App';
+```
+For a default import, you tell it to be ```default``` and **do not** use the ```{}``` braces.
+
 ## Using Components Examples
 To call another component within the same file, you use the same self-closing tag syntax:
 ```
