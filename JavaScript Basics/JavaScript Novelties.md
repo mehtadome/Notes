@@ -71,6 +71,39 @@ const person = {
   getName: () => this.name
 }
 ```
+### Nested Arrow Function Expressions
+Arrow function expressions can be nested for specific searching, commonly when filtering/finding select data in a JSON.
+
+Take this basic JSON-like data structure:
+```
+const products = [{
+    "id": 1,
+    "category": "shoes",
+    "image": "shoe1.jpg",
+    "name": "Hiker",
+    "price": 94.95,
+    "skus": [
+      { "sku": "17", "size": 7 }]
+}];
+```
+We want to find an ```sku``` who's ```.size``` is equal to our ```sizeWanted```.
+```
+// filter products based on the selected sizeWanted
+const filteredProducts = sizeWanted ? products.filter(
+    // find products with sku["size"] equal to current state size
+    (product) => product.skus.find( (sku) => sku.size === sizeWanted
+    ) // end of find
+) // end of filter 
+// if size isn't selected, return unfiltered list of products
+: products; 
+```
+A lot is happening here. The first line uses the _ternary operator_ telling it simply that if a product is filtered accordingly, return whatever passes the condition in a new array (happens automatically since ```products``` is an array).
+- If it is not found, it will return a list of unfiltered products.
+
+The first _one-line_ says for each ```product```, we are looking for the ```skus``` value specifically.
+- Keep in mind this is referring to each product (```{}```) within the array (```[]```).
+
+The second one-line, we compare the ```size``` of the sku to our ```sizeWanted```. If they equal, it will return. 
 
 ## Destructuring Assignments
 A JavaScript expression which makes it possible to unpack values from arrays, object properties, into distinct variables.

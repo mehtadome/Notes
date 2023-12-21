@@ -9,6 +9,11 @@ If manually styling is wanted, it must be defined in ```<head>```.
 </head>
 ```
 
+### HTML5 Flowchart
+Provides useful feedback on which tag to use based on different use cases / wants. 
+
+Generally speaking, using a ```<div>``` or ```<p>``` consistently is bad practice. Using a flowchart helps you find better alternative tags which are more _descriptive_. A good alternate to a div is a ```<section>```. 
+
 ## JavaScript (JS)
 
 Can use the Inspect Element _console_ to script .js directly.
