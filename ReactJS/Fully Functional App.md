@@ -1,12 +1,7 @@
-# Managing State in React.js
+# Building an Application
 These notes follow alongside the Pluralsight course **Managing State in React 18** by _Cory House_.
 
 The goal is to build a ___ over many increments.
-
-#### Basic Setup of Accompanying Files
-Run ```npm install``` within either the **before**/**after** folder.
-
-Run ```npm start``` to run and open the application in a window on default browser.
 
 ### File Structure
 ```db.json``` has the mock database.
@@ -20,6 +15,12 @@ Run ```npm start``` to run and open the application in a window on default brows
 ```App.jsx``` controls the main application logic.
 
 ```services/``` folder has pre-made helper functions for working with the mock API.
+
+### Basic Setup of Accompanying Files
+Run ```npm install``` within either the **before**/**after** folder.
+
+Run ```npm start``` to run and open the application in a window on default browser.
+
 
 # State
 We know the basic syntax of creating state is ```const [size, setSize] = useState("");``` for example. 
@@ -43,7 +44,7 @@ const MyComponent = () => {
 }
 ```
 
-# Good Practices
+## The API using Hooks
 Error handling (instructions in **APIs.md**).
 
 Loading notifications, accomplished by doing something like this in ```package.json```. The following code helps test its implementation. This is useful when in a real-world environment, the API call takes sometime to complete.
@@ -71,4 +72,5 @@ return (...);
 ```
 Refresh the page and you'll see the animated spinner to signify data is loading. 
 
-## Turning the response into advanced code
+Refer to the **APIs.md** _Custom Hook_ to see the final version of the API call.
+

@@ -38,7 +38,39 @@ export async function getProducts(category) {
 ```
 
 ## Create a Custom Hook
-(done later)
+```
+const baseUrl = process.env.REACT_APP_API_BASE_URL;
+
+export default function useFetch(url) {
+    const [data, setData] = useState(null);
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        async function init() {
+          try {
+            const response = await fetch(baseUrl + url);
+            if (response.ok) 
+            {
+                const myjson = await response.json();
+                setData(myjson);
+            } else {
+                throw response;
+            }
+          } catch (e) {
+            setError(e);
+          
+          } finally {
+            setLoading(false);
+          }
+        }
+        init();
+      }, [url]);
+
+    return { data, error, loading };
+}
+```
+By using a custom hook, it takes care of all relevant states, data fetching, error handling, and the final parsing and passing of data back to the main ```<App />```.
 
 ## Library
 Call a third-party library that handles it all for you and more.
