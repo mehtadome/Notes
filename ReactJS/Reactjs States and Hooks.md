@@ -34,6 +34,15 @@ function Toggle() {
 ```
 ```setToggle()``` will update the value of ```toggle``` and re-render the component with the new value.
 
+We now know the basic syntax of creating state is ```const [size, setSize] = useState("");``` for example. 
+
+This syntax is actually utilizing _array destructuring_ and the following is also acceptable:
+```
+const state = useState("");
+const size = state[0];
+const setSize = state[1];
+```
+
 ## Previous State
 React updates asynchronously meaning there are some scenarios where code will run before state is finished updating. To avoid, use **callback functions** as best practice.
 
