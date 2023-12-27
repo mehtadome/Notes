@@ -1,7 +1,10 @@
 {
 	"folders": [
 		{
-			"path": ".."
+			"path": "."
+		},
+		{
+			"path": "../react-18-managing-state"
 		}
 	],
 	"settings": {}

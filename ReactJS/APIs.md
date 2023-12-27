@@ -38,6 +38,7 @@ export async function getProducts(category) {
 ```
 
 ## Create a Custom Hook
+### useFetch(url)
 ```
 const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
@@ -71,6 +72,10 @@ export default function useFetch(url) {
 }
 ```
 By using a custom hook, it takes care of all relevant states, data fetching, error handling, and the final parsing and passing of data back to the main ```<App />```.
+### useFetchAll(urls)
+Can utilize a built-in JS function ```Promise()``` to make multiple requests at once. 
+
+Refer to the **useFetchAll.js** file. 
 
 ## Library
 Call a third-party library that handles it all for you and more.

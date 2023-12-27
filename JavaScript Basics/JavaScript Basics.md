@@ -168,6 +168,14 @@ myFunction();
 loggingFunction();
 ```
 
+### Pure Function
+A _pure function_ depends only on the arguments passed in. It also doesn't mutate any arguments. It has no side effects in that it changes nothing outside the function and only returns a new value based on the parameters provided.
+```
+function add(x, y) {
+  return x + y;
+}
+```
+
 ## Arrays
 Initialize with ```let values = [1,2,3,4];```
 

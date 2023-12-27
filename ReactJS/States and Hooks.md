@@ -55,7 +55,6 @@ return (
       <button onClick={increment}>Click here!</button>
     </div>
   );
-}
 ```
 Since the next value of count depends on its previous value, the callback function is passed instead of a value.
 
@@ -226,6 +225,12 @@ root.render(<StarMatch />);
 ```
 In the code, the id will increment by 1 everytime the ```startNewGame()``` prop is called at a lower level.
 
+## Inline function for state
+When declaring to useState, if an infline function is passed, it is called _lazy evaluation_. This means that the function will only run the first time the component renders.
+```
+const [cart, setCart] = useState(() => {...});
+```
+
 ## Fetch Data
 Controlling fetching is a common use case.
 ```
@@ -305,6 +310,201 @@ export default function SocialNetwork()
 }
 ```
 Placing Effects next to their corresponding States is good programming.
+
+# Refs
+```useRef()```s are used to store a value that's stable between renders. Unlike state, you can mutate the ref's value directly and doesn't automatically re-render when unchanged.
+```
+import React, { useRef } from 'React';
+
+function TextInputButton() {
+  const input1 = useRef(null);
+  const onClick = () => input1.current.focus();
+
+  return (
+    <>
+      <input ref={input1} type ="text" />
+      <button onClick={onClick}>Focus input button</button>
+    </>
+  );
+}
+```
+The ```ref``` prop is unique to React. It provides a direct reference to the underlying DOM element with the ```.current``` property. 
+
+Refs make it such that the HTML input is the source of truth instead of React's state.
+
+## Difference to useState
+A useState looks like such:
+```
+const [sku, setSku] = useState("");
+// later
+return (
+  <select value={sku} onChange={(e) => setSku(e.target.value)}></select>
+
+  <button onClick={() =>
+    props.addToCart(sku);
+  }>
+);
+```
+
+A ref looks like:
+```
+const skuRef = useRef();
+// later
+return (
+  <select value={sku} onChange={(e) => setSku(e.target.value)}></select>
+
+  <button onClick={() =>
+    const sku = skuRef.current.value;
+    props.addToCart(sku);
+  }>
+);
+```
+```skuRef```'s ```current``` is the ```<select>``` element. That element has an attribute ```value``` which equals the ```{sku}```.
+
+Using refs to manage state turns the component into an uncontrolled one.
+
+Generally, it is not recommended unless there are extreme performance requirements or when working with non-React libraries.
+
+## useRef to store previous value
+By using useRef, we can judge whether the ```.current``` urls are equal to the urls passed. If they are, simply return. If they aren't equal, change it.
+```
+const prevUrls = useRef([]);
+
+useEffect(() => {
+  if (areEqual(prevUrls.current, urls)) => return;
+  
+  prevUrls.current = urls;
+  // fetch logic  
+});
+```
+
+# useReducer
+```useReducer()``` requires a _pure function_ that accepts state and an action. Whatever is **returned** becomes the new state. 
+
+The function is passed to the useReducer hook which returns the initial state and a _dispatch function_. The dispatch function will _dispatch_ actions to change state. 
+
+useReducer is great for extracting state logic outside of the component completely. It's better for scalability due to its reusability and unit testing.
+
+## Syntax
+```
+export default function cartReducer(state, action) {
+  switch (action.type) {
+    case "empty" :
+      return [];
+    ...
+    default: 
+      throw new Error("Unhandled action " + action.type);
+  }
+}
+```
+The syntax requires some state passed and an action. To refer to a specific action, you must use ```.type```. It is best practice to use the ```switch``` statement in a useReducer. 
++ It's good practice to have a default.
+
+### Multiple Arguments
+The pure function requires two arguments but is not limited to two. This means that any argument at position 2 and after will be considered an action.
+```
+const { id, sku } = action;
+```
+Then, we can use destructuring to refer to the different actions passed in.
+
+When destructuring similar values in different cases, confine the case within ```{}``` to signify scope.
+```
+case "add":{
+  const { sku, qty } = action; }
+
+case "update": {
+  const { id, qty } = action; }
+```
+## Setting up useReducer
+```
+// outside App
+let initialCart = [];
+// inside App
+const [cart, dispatch] = useReducer(cartReducer, initialCart);
+
+return (
+  <>
+    <Routes>
+      <Route 
+      path="/cart"
+      element={<Cart cart={cart } dispatch={dispatch} />}
+      />
+    </Routes>
+  </>
+);
+
+// Separate file using props
+export default function Cart({ cart, dispatch }) {
+  // other logic
+  return (
+    <button onClick={() => {
+      props.dispatch({ type: "add", id, sku });
+    }}>
+  )
+}
+```
+
+## useState vs useReducer
+useState
++ Easy to implement for most scenarios. 
++ Easy to learn.
+
+useReducer
++ Manage complex states like: Transitions, Multiple-sub values, Next state depends on previous.
++ Isolate state and still testable.
++ Reusable (can place in separate file).
+
+# Context
+Having a context provider is useful when multiple components need some sort of value passed down by the topmost component but don't need to share props with others. 
+
+For example, if the app structure is a tree like such and 3 needs a prop from 1, it cannot grab it without it passing to 2 first.
+1
+ 2
+  3
+By using context, that can be avoided.
+
+## Setup
+To setup context, create something like such in a new file ```_Context.js```:
+```export const CartContext = React.createContext(null);```
+
+This file will keep all the context for the app and be used as its own component.
+
+Then, in the topmost ```<App />``` layout component, wrap everything within 
+```
+import { CartContext } from ...;
+
+App() {
+  return (
+    <CartContext.Provider>
+      <Routes>
+        <Route
+        path="/cart"
+        element={<Cart />}
+        >
+      </Routes>
+    </CartContext.Provider>
+  );
+}
+```
+Note: _Provider_ tells React we want that tag to be used to provide context. Also, the ```<Cart />``` component no longer passes down props anymore.
+
+Now, in the file that needs the props, it can be easily replaced like such:
+```
+import React, { useContext } from "react";
+import { CartContext } from ...;
+export default function Cart() 
+{
+  const { cart, dispatch } = useContext(CartContext);
+  // other logic
+}
+```
+Old-version:
+```
+Cart({ cart, dispatch }) {...}
+```
+
+## Carved Rock Fitness
+Refer to the **Carved Rock Fitness** project to see this in action. The file for examination is ```src/cartContext.js```.
 
 # Appendix
 

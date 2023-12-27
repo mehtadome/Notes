@@ -193,6 +193,22 @@ An event listener is JSX must be a function. It also uses camel case which is di
 
 Notice how the function being called does not include ```()```.
 
+### Event.Target
+In JSX, you can pass event as a parameter to the function called in the event handler/listener to request specific information about it.
+
+```
+function handleChange(e) {
+  console.log( e, e.target.id, e.target.content );
+}
+
+return (
+  <select
+    id="country"
+    content="address"></select>
+  );
+```
+In this code, ```e```, the event is a ```<select>```. To refer to a specific attribute, you call ```e.target```. The console will log the values within the select's ```id``` and ```content```.
+
 ### Objects
 Same as JavaScript
 ```
@@ -452,6 +468,17 @@ function App() {
 } export default App;
 ```
 Can use ```.``` notation to refer to the _object_ ```props``` attributes.
+
+### Prop Destructuring
+Props can be destructured within the same line like such:
+```export default function Cart({ cart, updateQuantity }) {...}```
+
+This code is the same as:
+```
+export default function Cart(props) {
+  const { cart, updateQuantity } = props;
+}
+```
 
 ### Functions as Props
 ```

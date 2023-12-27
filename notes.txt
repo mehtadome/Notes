@@ -1,12 +1,1 @@
-// Standard
-ColorPicker
-ToggleLoading
-PhoneNumber
-QuizNavBar
-// Arrays
-PersonalPizza
-GroceryCart
-// Objects
-Login
-// Effects
-Timer()
+08 holds the final build
