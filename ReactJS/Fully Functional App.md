@@ -1,7 +1,7 @@
 # Building the Application
 These notes follow alongside the Pluralsight course **Managing State in React 18** by _Cory House_.
 
-The goal is to build a ___ over many increments.
+The goal is to build the **Rock Fitness** store over 9 increments.
 
 ## File Structure
 ```db.json``` has the mock database.
