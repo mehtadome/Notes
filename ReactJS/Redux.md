@@ -112,3 +112,46 @@ const matchDispatchToProps = { incrementCounter };
 ```
 
 This and `bindActionCreators` seem to be the most widely accepted ways of doing so.
+
+Example Implementation:
+
+```
+mapStateToProps (state) {
+    return {
+        courses: state.courses,
+        authors: state.authors,
+    };
+}
+```
+
+Notice how you are simply just defining the value with `state.`key.
+
+```
+const mapDispatchToProps = {
+    loadCourses: courseActions.loadCourses,
+    loadAuthors: authorActions.loadAuthors,
+};
+```
+
+Similarly, you use the action creator as the prefix.
+
+## Use Props in a Component
+
+Alongside the setup for connect with the `mapStateToProps` function, you must also explicitly map the props of the component to the Redux state.
+
+For example, if a component has a `name` and `onChange` props, this must also be declared:
+
+```
+ComponentName.PropTypes = {
+    name: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired,
+};
+```
+
+This is necessary to make the state data available to the component without it needing to be aware of Redux.
+
+Import with:
+
+```
+import PropTypes from "prop-types";
+```

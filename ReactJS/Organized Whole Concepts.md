@@ -141,7 +141,7 @@ import { NavLink } from "react-router-dom";
 
 # Shortcuts
 
-## Right-hand Reduction
+## Object Shorthand
 
 If an object is being referenced and both the left and right-hand side are the same, it does not need to be stated twice.
 `courses: courses` and be simplified to just `courses`.
@@ -150,4 +150,49 @@ If an object is being referenced and both the left and right-hand side are the s
 const rootReducer = combineReducers({
   courses,
 });
+```
+
+## Computed Property Syntax
+
+To reference a property via a variable, you can utilize `[]`.
+
+```
+const { name, value } = event.target;
+setCourse([name] : name === "John" ? "Maximum Overdrive");
+```
+
+# States and Hooks
+
+## Multiple Props
+
+It is common to destructure props from the function call itself like:
+
+```
+function Manage({ courses, authors }) {...}
+```
+
+but sometimes, to call other props not being destructured due to naming ambiguity throughout the component, you can use the _rest_ syntax.
+
+```
+function Manage({ courses, authors, ...props }) {
+    // where you can now do something like
+    const course = ...props.course;
+}
+```
+
+You can also use an _alias_ to do the same:
+
+```
+function Manage({ courses, authors, course: initialCourse }) {...}
+```
+
+## Event Handlers
+
+When changing state inside of an event handler, any data to be referenced within the `event.target` must be destructured on the first line to not cause an error.
+
+```
+function handleChange(event) {
+    const { name, value } = event.target;
+    setState(... => (....));
+}
 ```
